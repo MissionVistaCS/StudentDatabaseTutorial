@@ -42,7 +42,7 @@ app.post('/submit', function(req, res) {
 
 Now that we're done with the first part, it's time to implement a database using MongoDB and Mongoose.
 
-### Part 2: MongoDB and Mongoose
+### Part 2: Saving students into Mongo
 
 MongoDB is the NoSQL database we'll be using. To connect to the database from NodeJS, we use the Mongoose module. To install Mongoose, run `npm install --save mongoose` in the project's directory.
 
@@ -70,8 +70,29 @@ var mongoose = require('mongoose');
 var Student = require('./student');
 ```
 
-and establish a connection to the database under that (make sure Mongo is running using the mongod command):
+and establish a connection to the database under that (make sure Mongo is running using the mongod command and that you have a database named "student-database"):
 
 ```
 mongoose.connect('mongodb://localhost:27017/student-database');
 ```
+
+Now we will change the POST request function to this:
+
+```
+app.post('/submit', function(req, res) {
+    var name = req.body.name; //Stores name
+    var age = req.body.age; //Stores age
+    var email = req.body.email; //Stores email
+    console.log('POST: Name: ' + name + '. Age: ' + age + '. Email: ' + email + '.');
+
+    var newStudent = new Student({ name: name, age: age, email: email });
+    newStudent.save(function() {
+        console.log('Saved a new student');
+        return res.redirect('/');
+    });
+});
+```
+
+On form submission, a new Student object is created and then saved in the database. When it is finished saving, the callback function is executed, "Saved a new student" is printed, and the client is redirected.
+
+You should see the new student documents in the Mongo database. Next, we will display these documents on the page using EJS.
