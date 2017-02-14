@@ -96,3 +96,36 @@ app.post('/submit', function(req, res) {
 On form submission, a new Student object is created and then saved in the database. When it is finished saving, the callback function is executed, "Saved a new student" is printed, and the client is redirected.
 
 You should see the new student documents in the Mongo database. Next, we will display these documents on the page using EJS.
+
+### Part 3: Displaying students
+
+#### Switching over to EJS
+Currently, we are serving a static HTML file to the client when it GETs '/'. We will move to EJS, which allows the server to dynamically alter the HTML before sending it to the client.
+
+First, rename 'index.html' to 'index.ejs' and 'public' to 'views' (this is the common convention). Now, in 'app.js', erase the line `app.use(express.static(path.resolve(__dirname, 'public')));`
+and replace it with `app.get('/', function(req, res) { return res.render('index'); });`. Now, near the top of the file, and under the declaration of `app`, paste:
+```
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+```
+This sets our view engine to EJS and our views directory to 'views'.
+
+#### Passing data into index.ejs
+Inside our app.get() callback function, we're going to perform a database search and return all the results to 'index.ejs':
+```
+app.get('/', function(req, res) { 
+    Student.find({}, function(err, results) {
+        if (err) return console.log(JSON.stringify(err));
+        return res.render('index', { students: results });
+    });
+});
+```
+
+#### Displaying students
+Now, open 'index.ejs'. Underneath the form, create an unordered list (`<ul>` tags). Inside the list, paste this:
+```
+<% students.forEach(function(student) { %>
+            <li>Name: <%= student.name %>. Age: <%= student.age %>. Email: <%= student.email %></li>
+        <% }); %>
+```
+Before this file is sent to the client, EJS will evaluate the javascript enclosed by the `<%%>` tags.
