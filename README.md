@@ -126,6 +126,6 @@ Now, open 'index.ejs'. Underneath the form, create an unordered list (`<ul>` tag
 ```
 <% students.forEach(function(student) { %>
             <li>Name: <%= student.name %>. Age: <%= student.age %>. Email: <%= student.email %></li>
-        <% }); %>
+<% }); %>
 ```
 Before this file is sent to the client, EJS will evaluate the javascript enclosed by the `<%%>` tags.
