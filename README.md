@@ -9,6 +9,7 @@ Understand the basics of Express, POST requests, and MongoDB.
 
 ## Tutorial
 
+Run `npm install`.
 ### Part 1: Form Submissions
 Add 
 
@@ -43,8 +44,9 @@ app.post('/submit', function(req, res) {
 Now that we're done with the first part, it's time to implement a database using MongoDB and Mongoose.
 
 ### Part 2: Saving students into Mongo
+Before we start, open a terminal/console window and run `mongod`. Then, open another terminal/console window and type `mongo` followed by `use student-database`.
 
-MongoDB is the NoSQL database we'll be using. To connect to the database from NodeJS, we use the Mongoose module. To install Mongoose, run `npm install --save mongoose` in the project's directory.
+MongoDB is the NoSQL database we'll be using. To connect to the database from NodeJS, we use the Mongoose module.
 
 Create a new file, named 'student.js', and add `var mongoose = require('mongoose');` to the top of the file. Now, we need to create a model of our database:
 
