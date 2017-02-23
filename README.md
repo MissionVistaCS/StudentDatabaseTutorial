@@ -97,7 +97,7 @@ app.post('/submit', function(req, res) {
 
 On form submission, a new Student object is created and then saved in the database. When it is finished saving, the callback function is executed, "Saved a new student" is printed, and the client is redirected.
 
-You should see the new student documents in the Mongo database. Next, we will display these documents on the page using EJS.
+Open the Mongo shell (the `mongo` window) and run `db.student-database.find()`. You should see the new student documents in the Mongo database. Next, we will display these documents on the page using EJS.
 
 ### Part 3: Displaying students
 
