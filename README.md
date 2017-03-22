@@ -41,6 +41,8 @@ app.post('/submit', function(req, res) {
 });
 ```
 
+Note: We return `res.redirect('/');` not to return any data, but to exit the function. This is a common practice.
+
 Now that we're done with the first part, it's time to implement a database using MongoDB and Mongoose.
 
 ### Part 2: Saving students into Mongo
